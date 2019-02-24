@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.agrify_admin">
+
+    <dist:module dist:instant="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+
+        android:roundIcon="@drawable/app_icon"
+        android:supportsRtl="true"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+        tools:replace="android:appComponentFactory"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.example.agrify_admin.auth.authVerification"></activity>
+        <activity android:name="com.example.agrify_admin.StoreDetailActivity" />
+        <activity
+            android:name="com.example.agrify_admin.editProfile"
+            android:label="@string/title_activity_edit_profile" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/AppTheme.Actionbar" />
+        <activity
+            android:name="com.example.agrify_admin.introSlider"
+            android:label="@string/title_activity_intro_slider" />
+
+        <activity
+            android:name="com.example.agrify_admin.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.agrify_admin.auth.LoginActivity" />
+        <activity android:name="com.example.agrify_admin.auth.PWresetActivity" />
+        <activity android:name="com.example.agrify_admin.auth.RegistrationActivity" />
+        <activity
+            android:name="com.example.agrify_admin.SplashActivity"
+            android:theme="@style/AppTheme.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

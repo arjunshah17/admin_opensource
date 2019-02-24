@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Agrify Admin</string>
+    <string name="store">Store</string>
+    <string name="wiselist">wiselist</string>
+    <string name="chat">Chat</string>
+    <string name="notification">Notification</string>
+    <string name="about">Profile</string>
+
+
+    <string name="title_activity_edit_profile">editProfile</string>
+    <string name="title_activity_intro_slider">introSlider</string>
+    <string name="email_hint">Email</string>
+    <string name="phone_hint">Phone Number</string>
+
+    <string name="changeProfile">Change Profile</string>
+
+
+    <string-array name="categories_names">
+
+        <item>all</item>
+        <item>fruits</item>
+        <item>vegetables</item>
+        <item>seeds</item>
+        <item>grains</item>
+        <item>pulses</item>
+
+        <item>dairy products</item>
+
+    </string-array>
+
+
+    <string name="shr_filter_title">Filter</string>
+    <string name="shr_search_title">Search</string>
+
+
+    <!-- Shrine backdrop menu labels -->
+    <string name="username">user name</string>
+    <string name="editProfileBtn">edit profile</string>
+    <string name="profile_menu_save">save</string>
+
+
+    //authentication
+    <string name="forgot_password">Forgot password?</string>
+
+
+    //validation auth
+    <string name="password_error">password must be of 6 char or greater and no  space is allowed</string>
+    <string name="username_empty">user name cannot empty</string>
+    <string name="phone_error">phone no is invalid</string>
+    <string name="password_match_error">both password must match</string>
+    <string name="email_verification">You will receive an email with instructions of verification of email.</string>
+
+
+    //transaction names
+    <string name="store_product_transition">store_product_transition</string>
+</resources>
+
