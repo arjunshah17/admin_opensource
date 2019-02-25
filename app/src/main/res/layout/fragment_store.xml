@@ -145,6 +145,18 @@ android:layout_gravity="center_horizontal"
                 android:scrollbarStyle="outsideOverlay"
                 android:layout_marginRight="@dimen/shr_list_margin"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            <com.tuann.floatingactionbuttonexpandable.FloatingActionButtonExpandable
+                android:id="@+id/fabButton"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="60dp"
+                app:fab_bg_color="@color/colorPrimary"
+                app:fab_content="add product"
+                app:fab_expanded="true"
+                app:fab_icon="@drawable/ic_add_black_24dp" />
         </FrameLayout>
     </FrameLayout>
 </layout>

@@ -2,7 +2,6 @@ package com.example.agrify_admin.fragments;
 
 
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +21,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-
+import com.example.agrify_admin.ProductActivity;
 import com.example.agrify_admin.R;
 import com.example.agrify_admin.StoreDetailActivity;
 import com.example.agrify_admin.adapter.StoreAdapter;
@@ -99,7 +100,28 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
                 navigationIconClickListener.closeMenu();
             }
         });
+        bind.storeRecycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
 
+                    bind.fabButton.collapse(true);
+                } else {
+                    bind.fabButton.expand(true);
+                    bind.appBar.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+
+        bind.fabButton.toggle(true);
+        bind.fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ProductActivity.class));
+            }
+        });
 
         return bind.getRoot();
     }

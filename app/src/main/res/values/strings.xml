@@ -5,7 +5,7 @@
     <string name="chat">Chat</string>
     <string name="notification">Notification</string>
     <string name="about">Profile</string>
-
+    <string name="username">user name</string>
 
     <string name="title_activity_edit_profile">editProfile</string>
     <string name="title_activity_intro_slider">introSlider</string>
@@ -34,7 +34,6 @@
 
 
     <!-- Shrine backdrop menu labels -->
-    <string name="username">user name</string>
     <string name="editProfileBtn">edit profile</string>
     <string name="profile_menu_save">save</string>
 

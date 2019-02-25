@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ds="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="store"
+            type="com.example.agrify_admin.model.Store" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<ProgressBar
+    android:id="@+id/loader_progressBar"
+    android:layout_width="wrap_content"
+    android:visibility="gone"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loader_layout">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/app_bar"
+                style="@style/Widget.Shrine.Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center"
+                app:navigationIcon="@drawable/shr_close_menu"
+                app:title="add product"
+
+                />
+
+            <LinearLayout
+                style="@style/Widget.Shrine.Backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="100dp"
+                android:paddingBottom="100dp" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp">
+
+
+            <LinearLayout
+                android:id="@+id/productLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/productGridBackgroundColor"
+
+                android:orientation="vertical"
+
+                >
+
+                <Spinner
+                    android:id="@+id/cat_spinner"
+                    style="@style/AppTheme.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/categories_names"
+
+
+                    android:padding="@dimen/activity_vertical_margin"
+                    android:spinnerMode="dialog" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:hint="enter product name"
+                    app:hintEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/productName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="@{store.name}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+<ImageView
+    android:id="@+id/product_imageView"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:src="@drawable/ic_add_a_photo_black_24dp"
+    />
+
+
+                <TextView
+                    android:id="@+id/productdes_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+
+
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+    </RelativeLayout>
+</layout>

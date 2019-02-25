@@ -27,10 +27,9 @@
             android:label="@string/title_activity_edit_profile" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            tools:replace="android:theme"
             android:theme="@style/AppTheme.Actionbar" />
-        <activity
-            android:name="com.example.agrify_admin.introSlider"
-            android:label="@string/title_activity_intro_slider" />
+
 
         <activity
             android:name="com.example.agrify_admin.MainActivity"
@@ -47,7 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name="com.example.agrify_admin.ProductActivity"></activity>
     </application>
 
 </manifest>
