@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -342,6 +343,22 @@ else {
 bind.animationLayout.setVisibility(View.GONE);
             bind.storeRecycleView.setVisibility(View.VISIBLE);
             bind.animationView.cancelAnimation();
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case 1:
+mAdapter.edit(item.getGroupId());
+                return true;
+            case 2:
+
+             mAdapter.delete(item.getGroupId());
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 

@@ -1,6 +1,18 @@
 package com.example.agrify_admin.model;
 
-public class Store {
+import android.content.Context;
+import android.graphics.ColorSpace;
+import android.view.Display;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+
+import com.example.agrify_admin.R;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public class Store  {
     private String name, des, productImageUrl, category;
   // private  String lowPrice;
 public Store(){}
@@ -39,7 +51,18 @@ public Store(){}
     public String getCategory() {
         return category;
     }
-
+     public int getValFromCategory(Context context)
+     {
+        String arr[] = context.getResources().getStringArray( R.array.categories_names);
+         for( int i=0;i<arr.length;i++)
+         {
+            if (category.equals(arr[i]))
+            {
+                return i;
+            }
+         }
+return 0;
+     }
     public void setCategory(String category) {
         this.category = category;
     }

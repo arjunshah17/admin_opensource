@@ -26,6 +26,7 @@ import com.example.agrify_admin.model.Store;
 import com.github.gabrielbb.cutout.CutOut;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,12 +38,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Arrays;
+
 import es.dmoral.toasty.Toasty;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductActivity extends AppCompatActivity  {
     ActivityProductBinding binding;
     FirebaseUser firebaseUser;
     Store store;
+
     String TAG="ProductActivity";
     private FirebaseFirestore firebaseFirestore;
     private String user_id;
@@ -53,7 +57,8 @@ public class ProductActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 Boolean isChanged=false;
       Query mQuery;
-
+      Boolean isEdit=false;
+String ProductId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +67,7 @@ Boolean isChanged=false;
 
             binding.productLinearLayout.setBackground(this.getDrawable(R.drawable.store_item_background));//set curve background
         }
+
         store = new Store();
         firebaseAuth = FirebaseAuth.getInstance();
         this.setSupportActionBar(binding.appBar);
@@ -71,6 +77,14 @@ Boolean isChanged=false;
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+        if(getIntent().getExtras()!=null && getIntent().getStringExtra("id")!=null)
+        {
+            isEdit=true;
+            binding.appBar.setTitle("edit product");
+            ProductId=getIntent().getStringExtra("id");
+            initilzeData();
+
+        }
         binding.appBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +123,22 @@ Boolean isChanged=false;
 
 
 
+
+    }
+
+    private void initilzeData() {
+       firebaseFirestore.collection("store").document(ProductId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+           @Override
+           public void onSuccess(DocumentSnapshot documentSnapshot) {
+              store= documentSnapshot.toObject(Store.class);
+              binding.setStore(store);
+               GlideApp.with(ProductActivity.this)
+                       .load(store.getProductImageUrl())
+                       .into(binding.productImageView);
+
+               binding.catSpinner.setSelection(store.getValFromCategory(getApplicationContext()));
+           }
+       });
 
     }
 

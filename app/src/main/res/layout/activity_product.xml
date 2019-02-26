@@ -102,10 +102,12 @@
     />
 
 
-                <TextView
+                <EditText
                     android:id="@+id/productdes_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="enter details"
+                    android:text="@{store.des}"
                     />
 
 

@@ -2,13 +2,21 @@ package com.example.agrify_admin.viewHolder;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrify_admin.GlideApp;
+import com.example.agrify_admin.MainActivity;
+import com.example.agrify_admin.R;
 import com.example.agrify_admin.adapter.StoreAdapter;
 import com.example.agrify_admin.databinding.ItemStoreProductBinding;
 import com.example.agrify_admin.model.Store;
@@ -18,7 +26,7 @@ import com.varunest.sparkbutton.SparkEventListener;
 import es.dmoral.toasty.Toasty;
 
 
-public class StoreHolder extends RecyclerView.ViewHolder {
+public class StoreHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
     public ItemStoreProductBinding binding;
 
 
@@ -65,7 +73,9 @@ public class StoreHolder extends RecyclerView.ViewHolder {
 
             }
         });
+
         // Click listener
+itemView.setOnCreateContextMenuListener(this);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +86,16 @@ public class StoreHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("select an option");
+
+       menu.add(getAdapterPosition(),1,1,"edit");
+       menu.add(getAdapterPosition(),2,2,"remove");
+
 
     }
 }

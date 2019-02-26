@@ -95,11 +95,12 @@
             <TextView
                 android:id="@+id/productDes"
                 android:layout_width="match_parent"
-                android:layout_height="118dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:inputType="textMultiLine"
-                android:overScrollMode="ifContentScrolls"
+
+
                 android:padding="10dp"
                 android:scrollbars="vertical"
                 android:text="@{store.des}" />
