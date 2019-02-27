@@ -34,6 +34,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -150,15 +152,33 @@ String ProductId;
 
 
 
-        if (isChanged ) {
+        if (isChanged || isEdit ) {
 dataLoading(true);
 
+          if(isEdit && !isChanged) {
+              store.setCategory(binding.catSpinner.getSelectedItem().toString());
+              store.setName(binding.productName.getText().toString());
+              store.setDes(binding.productdesTextview.getText().toString());
+              firebaseFirestore.collection("store").document(ProductId).set(store).addOnCompleteListener(new OnCompleteListener<Void>() {
+                  @Override
+                  public void onComplete(@NonNull Task<Void> task) {
+                      if (task.isSuccessful()) {
+                          dataLoading(false);
+
+                          Toasty.success(ProductActivity.this, "product added", Toasty.LENGTH_LONG).show();
+                          startActivity(new Intent(ProductActivity.this, MainActivity.class));
+                      } else {
+                          Toasty.error(ProductActivity.this, "error in uploading data", Toasty.LENGTH_LONG).show();
+                      }
+                  }
+              });
+
+          }
 
 
 
-
-
-            final StorageReference ref = storageReference.child("storeProductImage").child(store.getName() + ".jpg");
+else{
+            final StorageReference ref = storageReference.child("storeProductImage").child(store.getName());
             UploadTask image_path = (UploadTask) ref.putFile(mainImageURI);//uploaded image in cloud
 
             Task<Uri> urlTask=image_path.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -181,19 +201,37 @@ dataLoading(true);
                         store.setCategory(binding.catSpinner.getSelectedItem().toString());
                         store.setName(binding.productName.getText().toString());
                         store.setDes(binding.productdesTextview.getText().toString());
+                           if(isEdit)
+                           {
+                               firebaseFirestore.collection("store").document(ProductId).set(store).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<Void> task) {
+                                       if (task.isSuccessful()) {
+                                           dataLoading(false);
 
-                        firebaseFirestore.collection("store").document(store.getName()).set(store).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    dataLoading(false);
-                                    Toasty.success(ProductActivity.this, "product added", Toasty.LENGTH_LONG).show();
-                                    startActivity(new Intent(ProductActivity.this, MainActivity.class));
-                                } else {
-                                    Toasty.error(ProductActivity.this, "error in uploading data", Toasty.LENGTH_LONG).show();
-                                }
-                            }
-                        });
+                                           Toasty.success(ProductActivity.this, "product added", Toasty.LENGTH_LONG).show();
+                                           startActivity(new Intent(ProductActivity.this, MainActivity.class));
+                                       } else {
+                                           Toasty.error(ProductActivity.this, "error in uploading data", Toasty.LENGTH_LONG).show();
+                                       }
+                                   }
+                               });
+                           }
+                           else {
+                               firebaseFirestore.collection("store").document().set(store).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<Void> task) {
+                                       if (task.isSuccessful()) {
+                                           dataLoading(false);
+
+                                           Toasty.success(ProductActivity.this, "product added", Toasty.LENGTH_LONG).show();
+                                           startActivity(new Intent(ProductActivity.this, MainActivity.class));
+                                       } else {
+                                           Toasty.error(ProductActivity.this, "error in uploading data", Toasty.LENGTH_LONG).show();
+                                       }
+                                   }
+                               });
+                           }
                     }
                 }
             });
@@ -201,7 +239,7 @@ dataLoading(true);
 
 
 
-        }
+        }}
         else
         {
             Toasty.info(ProductActivity.this,"upload image", Toasty.LENGTH_SHORT).show();
@@ -262,22 +300,28 @@ dataLoading(true);
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //add the function to perform here
-        DocumentReference defRef  =firebaseFirestore.collection("store").document(binding.productName.getText().toString().toLowerCase());
-        defRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        if(isEdit)
+        {
+              uploadData();
+        }
+        firebaseFirestore.collection("store").whereEqualTo("name",binding.productName.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Toasty.error(ProductActivity.this,"data already exists", Toasty.LENGTH_LONG).show();
-                    } else {
-                        uploadData();
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful())
+                {
+                   if( task.getResult().isEmpty())
+                   {
+                      uploadData();
+                   }
+                   else
+                   {
+                       Toasty.error(ProductActivity.this,"data already existed",Toasty.LENGTH_SHORT).show();
+                   }
                 }
             }
         });
+
+
 
         return (true);
 
