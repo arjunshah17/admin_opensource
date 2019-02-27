@@ -129,9 +129,11 @@ String ProductId;
     }
 
     private void initilzeData() {
+        dataLoading(true);
        firebaseFirestore.collection("store").document(ProductId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
            @Override
            public void onSuccess(DocumentSnapshot documentSnapshot) {
+               dataLoading(false);
               store= documentSnapshot.toObject(Store.class);
               binding.setStore(store);
                GlideApp.with(ProductActivity.this)
@@ -153,7 +155,7 @@ String ProductId;
 
 
         if (isChanged || isEdit ) {
-dataLoading(true);
+            dataLoading(true);
 
           if(isEdit && !isChanged) {
               store.setCategory(binding.catSpinner.getSelectedItem().toString());

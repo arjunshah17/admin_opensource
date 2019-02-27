@@ -20,7 +20,12 @@ import com.example.agrify_admin.R;
 import com.example.agrify_admin.adapter.StoreAdapter;
 import com.example.agrify_admin.databinding.ItemStoreProductBinding;
 import com.example.agrify_admin.model.Store;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.varunest.sparkbutton.SparkEventListener;
 
 import es.dmoral.toasty.Toasty;
@@ -28,8 +33,8 @@ import es.dmoral.toasty.Toasty;
 
 public class StoreHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
     public ItemStoreProductBinding binding;
-
-
+public FirebaseFirestore db;
+public FirebaseAuth auth;
 
     public StoreHolder(@NonNull ItemStoreProductBinding item) {
         super(item.getRoot());
@@ -39,7 +44,8 @@ public class StoreHolder extends RecyclerView.ViewHolder implements View.OnCreat
 
     public void bind(final DocumentSnapshot snapshot,
                      final StoreAdapter.OnStoreSelectedListener listener, final Activity activity) {
-
+        auth=FirebaseAuth.getInstance();
+db=FirebaseFirestore.getInstance();
         final Store store = snapshot.toObject(Store.class);
         Resources resources = itemView.getResources();
 
