@@ -84,7 +84,7 @@ batch=firebaseFirestore.batch();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Log.i("id",document.getId());
                       docRef=firebaseFirestore.collection("wishlist").document(document.getId()).collection("wishlist").document(getSnapshot(pos).getId());
-                        Toasty.error(activity,document.getId(),Toasty.LENGTH_SHORT).show();
+                      
                      batch.delete(docRef);
                      userProduct=firebaseFirestore.collection("store").document(getSnapshot(pos).getId()).collection("wishlist").document(document.getId());
                      batch.delete(userProduct);
