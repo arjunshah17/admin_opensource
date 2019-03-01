@@ -113,6 +113,7 @@ batch=firebaseFirestore.batch();
           String id=   getSnapshot(pos).getId();
         Intent intent =new Intent(activity, ProductActivity.class);
         intent.putExtra("id",id);
+        intent.putExtra("name",getSnapshot(pos).getString("name"));
         activity.startActivity(intent);
     }
 }

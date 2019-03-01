@@ -61,6 +61,7 @@ Boolean isChanged=false;
       Query mQuery;
       Boolean isEdit=false;
 String ProductId;
+String ProductName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +85,7 @@ String ProductId;
             isEdit=true;
             binding.appBar.setTitle("edit product");
             ProductId=getIntent().getStringExtra("id");
+            ProductName=getIntent().getStringExtra("name");
             initilzeData();
 
         }
@@ -309,32 +311,27 @@ else{
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful())
                 {
-                   if( task.getResult().isEmpty())
-                   {
-                      uploadData();
-                   }
-                   else
-                   {
-                     if(isEdit)
-                     {
-                         firebaseFirestore.collection("store").document(ProductId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                             @Override
-                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                 if(binding.productName.getText().toString().toLowerCase().equals(documentSnapshot.getString("name")))
-                                 {
-                                     uploadData();
-                                 }
-                                 else{
-                                     Toasty.error(ProductActivity.this, "product name  already taken by other", Toasty.LENGTH_SHORT).show();
-                                 }
-
-                             }
-                         });
-                       }
-                       else {
-                           Toasty.error(ProductActivity.this, "data already existed", Toasty.LENGTH_SHORT).show();
-                       }
-                   }
+                    if( task.getResult().isEmpty())
+                    {
+                        uploadData();
+                    }
+                    else
+                    {
+                        if(isEdit)
+                        {
+                            if(ProductName.equals(binding.productName.getText().toString().toLowerCase()))
+                            {
+                                uploadData();
+                            }
+                            else
+                            {
+                                Toasty.error(ProductActivity.this, "product name is taken by other product ", Toasty.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            Toasty.error(ProductActivity.this, "data already existed", Toasty.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             }
         });
