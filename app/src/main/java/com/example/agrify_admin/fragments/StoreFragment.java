@@ -351,7 +351,7 @@ bind.animationLayout.setVisibility(View.GONE);
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case 1:
-mAdapter.edit(item.getGroupId());
+               mAdapter.edit(item.getGroupId());
                 return true;
             case 2:
 

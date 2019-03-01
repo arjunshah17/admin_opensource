@@ -302,10 +302,8 @@ else{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //add the function to perform here
-        if(isEdit)
-        {
-              uploadData();
-        }
+
+
         firebaseFirestore.collection("store").whereEqualTo("name",binding.productName.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -317,7 +315,25 @@ else{
                    }
                    else
                    {
-                       Toasty.error(ProductActivity.this,"data already existed",Toasty.LENGTH_SHORT).show();
+                     if(isEdit)
+                     {
+                         firebaseFirestore.collection("store").document(ProductId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                             @Override
+                             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                 if(binding.productName.getText().toString().toLowerCase().equals(documentSnapshot.getString("name")))
+                                 {
+                                     uploadData();
+                                 }
+                                 else{
+                                     Toasty.error(ProductActivity.this, "product name  already taken by other", Toasty.LENGTH_SHORT).show();
+                                 }
+
+                             }
+                         });
+                       }
+                       else {
+                           Toasty.error(ProductActivity.this, "data already existed", Toasty.LENGTH_SHORT).show();
+                       }
                    }
                 }
             }
