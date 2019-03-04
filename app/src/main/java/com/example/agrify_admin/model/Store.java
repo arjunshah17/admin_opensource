@@ -14,14 +14,25 @@ import java.util.ArrayList;
 
 public class Store  {
     private String name, des, productImageUrl, category;
+    int sellerCount;
   // private  String lowPrice;
 public Store(){}
 
-    public Store(String name, String des, String productImageUrl, String category) {
+    public Store(String name, String des, String productImageUrl, String category,int sellerCount) {
         this.name = name;
         this.des = des;
         this.productImageUrl = productImageUrl;
         this.category = category;
+        this.sellerCount=sellerCount;
+
+    }
+
+    public int getSellerCount() {
+        return sellerCount;
+    }
+
+    public void setSellerCount(int sellerCount) {
+        this.sellerCount = sellerCount;
     }
 
     public String getName() {
