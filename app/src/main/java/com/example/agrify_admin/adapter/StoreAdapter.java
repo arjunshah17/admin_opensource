@@ -88,14 +88,36 @@ batch=firebaseFirestore.batch();
                      batch.delete(docRef);
                      userProduct=firebaseFirestore.collection("store").document(getSnapshot(pos).getId()).collection("wishlist").document(document.getId());
                      batch.delete(userProduct);
+
+
                     }
-                    batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    firebaseFirestore.collection("store").document(getSnapshot(pos).getId()).collection("sellerList").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(Void aVoid) {
-                            getSnapshot(pos).getReference().delete();
-                            notifyDataSetChanged();
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful())
+                            {
+                                for (QueryDocumentSnapshot document : task.getResult())
+                                {
+                                    DocumentReference ref=document.getDocumentReference("userId");
+                                    batch.delete(document.getReference());
+                                    batch.delete(ref);
+
+                                }
+
+                            }
+                            batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    getSnapshot(pos).getReference().delete();
+                                    notifyDataSetChanged();
+                                }
+                            });
+
                         }
                     });
+
+
+
 
                 } else {
 
