@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.agrify_admin.ProductActivity;
+import com.example.agrify_admin.ProductActivity.ProductActivity;
 import com.example.agrify_admin.R;
 import com.example.agrify_admin.StoreDetailActivity;
 import com.example.agrify_admin.adapter.StoreAdapter;

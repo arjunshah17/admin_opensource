@@ -29,6 +29,17 @@
     </string-array>
 
 
+    <string-array name="categories_spinner">
+        <item>select category</item>
+        <item>fruits</item>
+        <item>vegetables</item>
+        <item>seeds</item>
+        <item>grains</item>
+        <item>pulses</item>
+        <item>dairy products</item>
+    </string-array>
+
+
     <string name="shr_filter_title">Filter</string>
     <string name="shr_search_title">Search</string>
 
@@ -52,5 +63,6 @@
 
     //transaction names
     <string name="store_product_transition">store_product_transition</string>
+    <string name="product_empty">this field cannot be empty</string>
 </resources>
 

@@ -3,19 +3,16 @@ package com.example.agrify_admin.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
-import com.example.agrify_admin.ProductActivity;
+import com.example.agrify_admin.ProductActivity.ProductActivity;
 import com.example.agrify_admin.R;
 import com.example.agrify_admin.databinding.ItemStoreProductBinding;
-import com.example.agrify_admin.model.Store;
 import com.example.agrify_admin.viewHolder.StoreHolder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,8 +24,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
-
-import es.dmoral.toasty.Toasty;
 
 public class StoreAdapter extends FirestoreAdapter<StoreHolder>  {
     Activity activity;

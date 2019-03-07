@@ -46,7 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.agrify_admin.ProductActivity"></activity>
+        <activity android:name="com.example.agrify_admin.ProductActivity.ProductActivity"></activity>
     </application>
 
 </manifest>
