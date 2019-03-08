@@ -122,7 +122,7 @@ INIT();
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         binding.stepperForm.setup(this, cat,productImage,productDetails).displayBottomNavigation(false)
-                .lastStepNextButtonText("start selling").init();
+                .lastStepNextButtonText("upload product").init();
         binding.appBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -15,17 +15,27 @@ import java.util.ArrayList;
 public class Store  {
     private String name, des, productImageUrl, category,unit;
     int sellerCount;
+    float price;
   // private  String lowPrice;
 public Store(){}
 
-    public Store(String name, String des, String productImageUrl, String category,int sellerCount,String unit) {
+    public Store(String name, String des, String productImageUrl, String category,int sellerCount,String unit,float price) {
         this.name = name;
         this.des = des;
+        this.price=price;
         this.productImageUrl = productImageUrl;
         this.category = category;
         this.sellerCount=sellerCount;
         this.unit=unit;
 
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public String getUnit() {

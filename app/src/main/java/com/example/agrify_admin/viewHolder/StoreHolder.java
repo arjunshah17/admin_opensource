@@ -50,7 +50,13 @@ db=FirebaseFirestore.getInstance();
         Resources resources = itemView.getResources();
 
         binding.setStore(store);
-
+        if(store.getPrice()==0)
+        {
+            binding.price.setText("no seller is selling");
+        }
+        else {
+            binding.price.setText("start from ₹" + String.valueOf(store.getPrice()) + "/" + store.getUnit());
+        }
         // Load image
         if (activity != null) {
             GlideApp.with(activity)
