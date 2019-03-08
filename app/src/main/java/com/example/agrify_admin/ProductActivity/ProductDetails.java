@@ -2,6 +2,7 @@ package com.example.agrify_admin.ProductActivity;
 
 import android.app.Activity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -20,21 +21,45 @@ import ernestoyaquello.com.verticalstepperform.Step;
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
 public class ProductDetails extends Step<Boolean> implements TextViewBindingAdapter.OnTextChanged, TextWatcher {
-    Boolean validFlag;
-    Activity activity;
-    AwesomeValidation mAwesomeValidation ;
+
     ProductDetailsSteperBinding binding;
 
-    protected ProductDetails(String title ,Activity activity) {
+
+     ProductDetails(String title ) {
         super(title);
-        this.activity=activity;
 
 
     }
 
     @Override
     public Boolean getStepData() {
-        return false;
+Boolean flag=true;
+if(TextUtils.isEmpty( binding.productName.getText().toString().trim()))
+{
+    flag=false;
+    binding.productName.setError("product name cannot be empty");
+}
+
+        if(TextUtils.isEmpty( binding.productDec.getText().toString().trim()))
+        {
+            flag=false;
+            binding.productDec.setError("product description name cannot be empty");
+        }
+        if(TextUtils.isEmpty( binding.productUnit.getText().toString().trim()))
+        {
+            flag=false;
+            binding.productUnit.setError("product Unit name cannot be empty");
+        }
+        if(flag==true)
+        {
+            binding.productUnit.setError(null);
+            binding.productDec.setError(null);
+            binding.productName.setError(null);
+
+        }
+
+
+    return flag;
     }
 
     @Override
@@ -61,19 +86,18 @@ public class ProductDetails extends Step<Boolean> implements TextViewBindingAdap
     protected View createStepContentLayout() {
 
         binding= DataBindingUtil.inflate(LayoutInflater.from(getContext()),R.layout.product_details_steper,null,false);
-        mAwesomeValidation = new AwesomeValidation(BASIC);
-        mAwesomeValidation.addValidation(activity,binding.productName.getId(), RegexTemplate.NOT_EMPTY,R.string.product_empty);
-        mAwesomeValidation.addValidation(activity,binding.productDec.getId(), RegexTemplate.NOT_EMPTY,R.string.product_empty);
-        mAwesomeValidation.addValidation(activity,binding.productUnit.getId(), RegexTemplate.NOT_EMPTY,R.string.product_empty);
- binding.productName.addTextChangedListener(this);
- binding.productDec.addTextChangedListener(this);
- binding.productUnit.addTextChangedListener(this);
 
+
+    binding.productName.addTextChangedListener(this);
+     binding.productDec.addTextChangedListener(this);
+      binding.productUnit.addTextChangedListener(this);
         return binding.getRoot();
     }
 
     @Override
     protected void onStepOpened(boolean animated) {
+
+
 
     }
 
@@ -100,7 +124,7 @@ public class ProductDetails extends Step<Boolean> implements TextViewBindingAdap
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-      markAsCompletedOrUncompleted(true);
+        markAsCompletedOrUncompleted(true);
     }
 
     @Override

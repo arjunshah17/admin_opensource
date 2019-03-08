@@ -88,7 +88,11 @@ INIT();
                 dataLoading(false);
                 store= documentSnapshot.toObject(Store.class);
 
-             productDetails . binding.setStore(store);
+
+             productDetails.binding.productName.setText(store.getName());
+             productDetails.binding.productDec.setText(store.getDes());
+             productDetails.binding.productUnit.setText(store.getUnit());
+         productDetails.markAsCompletedOrUncompleted(true);
                 if(store.getProductImageUrl()!=null) {
                     GlideApp.with(ProductActivity.this)
                             .load(store.getProductImageUrl())
@@ -114,7 +118,7 @@ INIT();
 
         firebaseUser = firebaseAuth.getCurrentUser();
         user_id = firebaseAuth.getCurrentUser().getUid();
-        productDetails=new ProductDetails("enter product details",this);
+        productDetails=new ProductDetails("enter product details");
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         binding.stepperForm.setup(this, cat,productImage,productDetails).displayBottomNavigation(false)
@@ -188,7 +192,7 @@ productImage.binding.productUploadButton.setOnClickListener(new View.OnClickList
                     {
                         if(isEdit)
                         {
-                            if(ProductName.equals(store.getName()))
+                            if(ProductName.equals(productDetails.binding.productName.getText().toString().toLowerCase()))
                             {
                                 uploadData();
                             }
