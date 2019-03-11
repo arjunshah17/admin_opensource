@@ -106,7 +106,12 @@ FirebaseStorage storageReference;
                         deleteSellerProductImage(getSnapshot(pos).getString("name"),doc.getDouble("imageCount").intValue(),doc.getId());
                         Log.i("deleted user Id",doc.getDocumentReference("userId").getPath());
                     }
-                    storageReference.getReference().child("productStoreImage").child(productName).child(productName).delete();
+                    storageReference.getReference().child("productStoreImage").child(getSnapshot(pos).getString("name")).child(getSnapshot(pos).getString("name")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toasty.info(activity,"main image deleted",Toasty.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
                 firebaseFirestore.collection("store").document(getSnapshot(pos).getId()).collection("wishlist").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
