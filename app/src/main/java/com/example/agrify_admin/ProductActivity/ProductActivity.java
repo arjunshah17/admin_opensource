@@ -74,6 +74,7 @@ INIT();
             binding.appBar.setTitle("edit product");
             ProductId=getIntent().getStringExtra("id");
             ProductName=getIntent().getStringExtra("name");
+            productDetails.binding.productName.setFocusable(false);
             initilzeData();
 
         }
@@ -245,7 +246,7 @@ productImage.binding.productUploadButton.setOnClickListener(new View.OnClickList
 
 
             else{
-                final StorageReference ref = storageReference.child("storeProductImage").child(store.getName());
+                final StorageReference ref = storageReference.child("storeProductImage").child(store.getName()).child(store.getName());
                 UploadTask image_path = (UploadTask) ref.putFile(mainImageURI);//uploaded image in cloud
 
                 Task<Uri> urlTask=image_path.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -343,15 +344,19 @@ productImage.binding.productUploadButton.setOnClickListener(new View.OnClickList
     }
     void dataLoading(boolean state)
     {
-        if (state)
+        if(state)
         {
             binding.loaderLayout.setVisibility(View.GONE);
-            binding.loaderProgressBar.setVisibility(View.VISIBLE);
+binding.animationLayout.setVisibility(View.VISIBLE);
+              binding.animationViewText.playAnimation();
+            binding.animationView.playAnimation();
+
         }
         else {
-            binding.loaderProgressBar.setVisibility(View.GONE);
+           binding.animationLayout.setVisibility(View.GONE);
             binding.loaderLayout.setVisibility(View.VISIBLE);
-
+            binding.animationView.cancelAnimation();
+            binding.animationViewText.cancelAnimation();
         }
     }
 }

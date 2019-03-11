@@ -8,21 +8,47 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ProgressBar
-            android:id="@+id/loader_progressBar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       >
+        <LinearLayout
+            android:id="@+id/animation_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
             android:layout_centerInParent="true"
-            android:visibility="gone" />
+            >
+         <com.airbnb.lottie.LottieAnimationView
+             android:id="@+id/animation_view_text"
+             android:layout_width="match_parent"
+             android:layout_height="100dp"
+
+
+             app:lottie_loop="true"
+             app:lottie_autoPlay="true"
+             app:lottie_rawRes="@raw/animation_loading_text"
+             />
+
+        <com.airbnb.lottie.LottieAnimationView
+
+            android:id="@+id/animation_view"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            app:lottie_rawRes="@raw/animation_loading"
+
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+        </LinearLayout>
+
+
 
         <RelativeLayout
             android:id="@+id/loader_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"

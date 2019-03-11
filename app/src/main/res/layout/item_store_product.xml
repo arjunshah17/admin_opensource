@@ -14,15 +14,24 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/product_entry"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350dp"
         android:layout_margin="2dp"
 
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
-
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view_delete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:visibility="gone"
+            app:lottie_rawRes="@raw/animation_delete"
+            />
 
         <LinearLayout
+            android:id="@+id/main_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
