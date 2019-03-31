@@ -108,7 +108,7 @@ FirebaseStorage storageReference;
                 {
                     for(QueryDocumentSnapshot doc:task.getResult())
                     {
-                        SellerBatch.delete(Objects.requireNonNull(doc.getDocumentReference("userId")));
+                        SellerBatch.delete((doc.getDocumentReference("userId")));
                         deleteSellerProductImage(getSnapshot(pos).getString("name"),doc.getDouble("imageCount").intValue(),doc.getId());
                         Log.i("deleted user Id",doc.getDocumentReference("userId").getPath());
                     }
@@ -175,7 +175,7 @@ Task<Void> ref=storageReference.getReference().child("storeProductImage").child(
     }
 
     private void deleteSellerProductImage(String name, int imageCount,String seller_id) {
-        for(int count=1;count<=imageCount;count++) {
+        for(int count=0;count<=imageCount;count++) {
             storageReference.getReference().child("storeProductImage").child(name).child(seller_id).child(name).child(name + count).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
