@@ -34,9 +34,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.IOException;
+import java.util.List;
 
 import ernestoyaquello.com.verticalstepperform.listener.StepperFormListener;
 import es.dmoral.toasty.Toasty;
@@ -329,7 +336,7 @@ productImage.binding.productUploadButton.setOnClickListener(new View.OnClickList
                     productImage.binding.productImage.setVisibility(View.VISIBLE);
                      productImage.markAsCompleted(true);
 
-
+                    loadImageMlLabel();
                     isChanged = true;
 
 
@@ -342,6 +349,29 @@ productImage.binding.productUploadButton.setOnClickListener(new View.OnClickList
             }
         }
     }
+
+    private void loadImageMlLabel() {
+
+        FirebaseVisionImage image = null;
+        try {
+            image = FirebaseVisionImage.fromFilePath(getApplicationContext(), mainImageURI);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance()
+                .getOnDeviceImageLabeler();
+        labeler.processImage(image).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
+            @Override
+            public void onSuccess(List<FirebaseVisionImageLabel> firebaseVisionImageLabels) {
+                for(FirebaseVisionImageLabel label:firebaseVisionImageLabels)
+                {
+                    String text=label.getText();
+                    productDetails.binding.productName.setText(text);
+                }
+            }
+        });
+    }
+
     void dataLoading(boolean state)
     {
         if(state)
